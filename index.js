@@ -1,3 +1,6 @@
+function sleep(n) {
+    Atomics.wait(new Int32Array(new SharedArrayBuffer(4)), 0, 0, n);
+}
 var continuar = "s";
 var vitorias = 0;
 var vitoriasComputador = 0;
@@ -5,7 +8,7 @@ for(; continuar !== "n";){
   let tabelajogador = []
   let tabelacomputador = []
   let tabelaresultado = []
-    let jogadas = prompt("digite quantas jogadas vc deseja jogar? "); 
+    var jogadas = prompt("digite quantas jogadas vc deseja jogar? "); 
     console.clear();
     for(let i = 0; i < jogadas; i++){
       var escolha = prompt("escolha entre pedra, papel e tesoura: ");
@@ -23,7 +26,7 @@ for(; continuar !== "n";){
         }else {
           reescolha = 1;
           console.log("escolha invalida!");
-          var escolha = prompt("escolha entre pedra, papel e tesoura: ");
+          var escolha = prompt("escolha novamente entre pedra, papel e tesoura: ");
         }
       }
       tabelajogador.push(escolha);
@@ -31,7 +34,7 @@ for(; continuar !== "n";){
       tabelacomputador.push(computador);
       if(escolha === 0 && computador === 0){
         console.log("pedra com pedra é impate!")
-        tabelaresultado.push("impate")
+        tabelaresultado.push("impate ")
       }else if(escolha === 0 && computador === 1){
         console.log("pedra com papel é derrota!")
         vitoriasComputador++;
@@ -46,7 +49,7 @@ for(; continuar !== "n";){
         tabelaresultado.push("vitória")
       }else if(escolha === 1 && computador === 1){
         console.log("papel com papel é impate!")
-        tabelaresultado.push("impate")
+        tabelaresultado.push("impate ")
       }else if(escolha === 1 && computador === 2){
         console.log("papel com tesoura é derrota!")
         vitoriasComputador++;
@@ -61,50 +64,52 @@ for(; continuar !== "n";){
         tabelaresultado.push("vitória")
       }else if(escolha === 2 && computador === 2){
         console.log("tesoura com tesoura é impate!")
-        tabelaresultado.push("impate")
+        tabelaresultado.push("impate ")
       }
+      sleep(3000);
+      console.clear();
     }
-    console.log("==============================");
-    for(let i=0;i<3;i++){
+    console.log("=============================");
+    console.log("||usuário||  PC   ||Evento ||");
+    for(let i=0;i<jogadas;i++){
       if(tabelacomputador[i] === 0){
-        tabelacomputador[i] = "pedra";
+        tabelacomputador[i] = "pedra  ";
       }else if(tabelacomputador[i] === 1){
-        tabelacomputador[i] = "papel";
+        tabelacomputador[i] = "papel  ";
       }else if(tabelacomputador[i] === 2){
         tabelacomputador[i] = "tesoura";
       }
       if(tabelajogador[i] === 0){
-        tabelajogador[i] = "pedra";
+        tabelajogador[i] = "pedra  ";
       }else if(tabelajogador[i] === 1){
-        tabelajogador[i] = "papel";
+        tabelajogador[i] = "papel  ";
       }else if(tabelajogador[i] === 2){
         tabelajogador[i] = "tesoura";
       }
-      if(tabelajogador[i]=== 2 && tabelacomputador[i]=== 0){
-        console.log(`||${tabelajogador[i]}||${tabelacomputador[i]}  ||${tabelaresultado[i]}||`);
-      }else if(tabelajogador[i]=== 2 && tabelacomputador[i]=== 1){
-        console.log(`||${tabelajogador[i]}||${tabelacomputador[i]}  ||${tabelaresultado[i]}||`);
-      }else if(tabelajogador[i]=== 0 && tabelacomputador[i]=== 2){
-        console.log(`||${tabelajogador[i]}  ||${tabelacomputador[i]}||${tabelaresultado[i]}||`);
-      }else if(tabelajogador[i]=== 1 && tabelacomputador[i]=== 2){
-        console.log(`||${tabelajogador[i]}  ||${tabelacomputador[i]}||${tabelaresultado[i]}||`);
-      }else{
-        console.log(`||${tabelajogador[i]}  ||${tabelacomputador[i]}  ||${tabelaresultado[i]}||`);
-      }
+        console.log(`||${tabelajogador[i]}||${tabelacomputador[i]}||${tabelaresultado[i]}||`);
+      
     }
-    console.log("==============================");
+    console.log("=============================");
     
     if (vitorias > vitoriasComputador){
-      console.log("vc é o grande ganhador!");
+      console.log("=========================");
+      console.log("|vc é o grande ganhador!|");
+      console.log("=========================");
     }else if (vitorias < vitoriasComputador){
-      console.log("o computador é o grande ganhador!")
+      console.log("===================================");
+      console.log("|o computador é o grande ganhador!|");
+      console.log("====================================");
     }else {
-      console.log("deu empate!")
+      console.log("=============");
+      console.log("|deu empate!|");
+      console.log("=============");
     }
     vitorias=0;
     vitoriasComputador=0;
+    console.log();
     continuar = prompt("deseja continuar jogando? (s/n) ");
       if(continuar === "N"){
       continuar = "n";
     }
+    console.clear();
 }
